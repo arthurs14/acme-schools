@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const { STRING, UUID, UUIDV4, DECIMAL } = Sequelize;
 
-const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_schools');
+const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_schools', { logging: false });
 
 
 // Models
@@ -57,7 +57,7 @@ const Student = conn.define('student', {
 // Associations
 School.hasMany(Student);
 
-const mapAndSave = async (model, items) => Promise.all(items.map( item => model.create(item)));
+const mapAndSave = async (model, items) => Promise.all(await items.map( item => model.create(item)));
 
 const syncAndSeed = async () => {
   await conn.sync({ force: true });
@@ -83,8 +83,6 @@ const syncAndSeed = async () => {
   await mapAndSave(Student, students);
 
 };
-
-syncAndSeed();
 
 module.exports = {
   syncAndSeed,

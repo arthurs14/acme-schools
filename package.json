@@ -1,7 +1,7 @@
 {
   "name": "acme-schools",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "db.js",
   "scripts": {
     "webpack": "webpack --watch --mode=development",
     "start:dev": "npm run webpack & nodemon server.js --ignore dist/ --ignore src/",
