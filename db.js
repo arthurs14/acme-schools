@@ -55,7 +55,7 @@ const Student = conn.define('student', {
 });
 
 // Associations
-// School.hasMany(Student);
+School.hasMany(Student);
 
 const mapAndSave = async (model, items) => Promise.all(items.map( item => model.create(item)));
 
@@ -72,6 +72,15 @@ const syncAndSeed = async () => {
 
   const [ SU, CIT, UCLA, UCB, UCI ] = await mapAndSave(School, schools);
 
+  const students = [
+    { firstName: 'Tim', lastName: 'Smith', email: 'tim@gmail.com', GPA: 3.0, schoolId: SU.id },
+    { firstName: 'Jim', lastName: 'Marshall', email: 'jim@gmail.com', GPA: 3.10, schoolId: CIT.id },
+    { firstName: 'David', lastName: 'Quach', email: 'david@gmail.com', GPA: 3.25, schoolId: UCLA.id },
+    { firstName: 'Robert', lastName: 'Chen', email: 'robert@gmail.com', GPA: 3.5, schoolId: UCB.id },
+    { firstName: 'Tommy', lastName: 'Nguyen', email: 'tommy@gmail.com', GPA: 3.8, schoolId: UCI.id }
+  ];
+
+  await mapAndSave(Student, students);
 
 };
 
