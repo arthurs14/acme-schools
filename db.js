@@ -85,3 +85,11 @@ const syncAndSeed = async () => {
 };
 
 syncAndSeed();
+
+module.exports = {
+  syncAndSeed,
+  models: {
+    School,
+    Student
+  }
+};
