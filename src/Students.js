@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getStudents } from './store';
+import StudentForm from './StudentForm';
 
 const _Students = ({ students }) => {
   return (
     <div>
+      <StudentForm />
       <ul>
         {
           students.map( student =>
@@ -21,10 +22,6 @@ const Students = connect(({ students }) => {
   return {
     students
   };
-}, (dispatch) => {
-  return {
-    getStudents: () => dispatch(getStudents)
-  }
 })(_Students);
 
 export default Students;

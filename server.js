@@ -9,6 +9,7 @@ const { School, Student } = db.models;
 // MIDDLEWARE
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
+//app.use(express.urlencoded());
 
 app.get('/dist/main.js', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'dist/main.js'));
@@ -30,6 +31,7 @@ app.get('/api/students', (req, res, next) => {
 });
 
 app.post('/api/students', (req, res, next) => {
+  console.log(req.body.firstName);
   Student.create(req.body)
     .then(student => res.send(student))
     .catch(next);
