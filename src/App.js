@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { getStudents, getSchools } from './store';
 
 import Nav from './Nav';
+import Home from './Home';
+import Schools from './Schools';
+import Students from './Students';
+
 
 class _App extends React.Component {
   componentDidMount() {
@@ -13,6 +17,9 @@ class _App extends React.Component {
     return (
         <HashRouter>
           <Route component={ Nav } />
+          <Route path='/' component={ Home } exact />
+          <Route path='/schools' component={ Schools } />
+          <Route path='/students' component={ Students } />
         </HashRouter>
     );
   }
