@@ -1,4 +1,4 @@
-import { createStore, combineReduceres } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import axios from 'axios';
 import thunk from 'redux-thunk';
 
@@ -9,7 +9,7 @@ const SET_STUDENTS = 'SET_STUDENTS';
 const studentsReducer = (state = [], action) => {
   switch(action.type) {
     case SET_STUDENTS:
-      return action.student;
+      return action.students;
   }
   return state;
 };
@@ -35,7 +35,7 @@ const setStudents = (students) => ({ type: SET_STUDENTS, students });
 const setSchools = (schools) => ({ type: SET_SCHOOLS, schools });
 
 // METHODS
-const API = '/api/';
+const API = '/api';
 
 const getStudents = () => {
   return async (dispatch) => {
@@ -44,5 +44,12 @@ const getStudents = () => {
   };
 };
 
-export default store;
+const getSchools = () => {
+  return async (dispatch) => {
+    const schools = (await axios.get(`${API}/schools`)).data;
+    dispatch(setSchools(schools));
+  };
+};
 
+export default store;
+export { setStudents, setSchools, getStudents, getSchools };

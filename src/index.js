@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-
-const Home = () => <h1>Hello from out frontend!</h1>
+import { Provider } from 'react-redux';
+import App from './App';
+import store from './store';
 
 const root = document.querySelector('#root');
-render(<Home />, root);
+render(<Provider store={store}><App /></Provider>, root);
