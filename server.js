@@ -31,7 +31,7 @@ app.get('/api/students', (req, res, next) => {
 });
 
 app.post('/api/students', (req, res, next) => {
-  console.log(req.body.firstName);
+  console.log(req.body);
   Student.create(req.body)
     .then(student => res.send(student))
     .catch(next);

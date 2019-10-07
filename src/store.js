@@ -48,11 +48,11 @@ const getStudents = () => {
   };
 };
 
-const createStudent = () => {
+const createStudent = (student) => {
   return async (dispatch) => {
-    const student = (await axios.post(`${API}/students`)).data;
+    const created = (await axios.post(`${API}/students`, student)).data;
     console.log(student);
-    dispatch(addStudent(student));
+    dispatch(addStudent(created));
   }
 };
 

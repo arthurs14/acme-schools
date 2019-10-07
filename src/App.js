@@ -12,6 +12,7 @@ import Students from './Students';
 class _App extends React.Component {
   componentDidMount() {
     this.props.getData();
+
   }
   render() {
     return (
