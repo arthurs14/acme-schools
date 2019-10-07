@@ -33,7 +33,7 @@ class _StudentForm extends React.Component {
   }
 
   render() {
-    const { firstName, lastName, email, GPA, schoolId } = this.state;
+    const { firstName, lastName, email, GPA } = this.state;
     const { onChange, create } = this;
     return (
       <div>
