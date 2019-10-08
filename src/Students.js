@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import StudentForm from './StudentForm';
-import { deleteStudent } from './store';
+import { deleteStudent, enrollStudent } from './store';
 
-const _Students = ({ students, deleteStudent }) => {
+const _Students = ({ students, schools, enrollStudent, deleteStudent }) => {
   return (
     <div>
       <StudentForm />
@@ -24,6 +24,15 @@ const _Students = ({ students, deleteStudent }) => {
           students.filter( student => student.schoolId === null).map(student =>
             <li key={ student.id }>
               { student.firstName } { student.lastName }
+              <select name="schoolId" onClick={(ev) => enrollStudent(student, ev.target.value)}>
+                <option value="">Not Enrolled</option>
+                {
+                  schools.map(school =>
+                  <option key={school.id} value={school.id}>
+                    {school.name}
+                  </option>)
+                }
+              </select>
               <button onClick={() => deleteStudent(student)}>Delete</button>
             </li>
           )
@@ -33,12 +42,14 @@ const _Students = ({ students, deleteStudent }) => {
   );
 };
 
-const Students = connect(({ students }) => {
+const Students = connect(({ students, schools }) => {
   return {
-    students
+    students,
+    schools
   };
 }, (dispatch) => {
   return {
+    enrollStudent: (student, schoolId) => dispatch(enrollStudent(student, schoolId)),
     deleteStudent: (student) => dispatch(deleteStudent(student))
   }
 })(_Students);

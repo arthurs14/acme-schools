@@ -66,12 +66,22 @@ const createStudent = (student) => {
 
 const unenrollStudent = (student) => {
   console.log(student);
+
   student.schoolId = null;
-  //console.log(student);
+
   return async (dispatch) => {
     await axios.put(`${API}/students/${student.id}`, student);
     return dispatch(updateStudent(student));
-  }
+  };
+};
+
+const enrollStudent = (student, schoolId) => {
+  //change school from null to chosen one
+  student.schoolId = schoolId;
+  return async (dispatch) => {
+    await axios.put(`${API}/students/${student.id}`, student);
+    return dispatch(updateStudent(student));
+  };
 };
 
 const deleteStudent = (student) => {
@@ -90,4 +100,4 @@ const getSchools = () => {
 };
 
 export default store;
-export { setStudents, addStudent, setSchools, getStudents, createStudent, deleteStudent, unenrollStudent, getSchools };
+export { setStudents, addStudent, setSchools, getStudents, createStudent, deleteStudent, unenrollStudent, enrollStudent, getSchools };
