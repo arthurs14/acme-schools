@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getSchools } from './store';
+import { unenrollStudent, getSchools } from './store';
 
-const _Schools = ({ schools }) => {
-  //console.log(schools[0].name);
+const _Schools = ({ schools, students, unenrollStudent }) => {
   return (
     <div>
       <ul>
@@ -14,10 +13,11 @@ const _Schools = ({ schools }) => {
               {
                 <ul>
                   {
-                    school.students.map(student =>
-                      <li key={student.id}>
-                        {student.firstName} {student.lastName}
-                      </li>)
+                    students.filter(student => student.schoolId === school.id).map(studentEnrolled =>
+                      <li key={studentEnrolled.id}>
+                        {studentEnrolled.firstName} {studentEnrolled.lastName}
+                        <button onClick={() => unenrollStudent(studentEnrolled)}>Unenroll</button>
+                      </li> )
                   }
                 </ul>
                 }
@@ -35,7 +35,8 @@ const Schools = connect(({ schools, students }) => {
   };
 }, (dispatch) => {
   return {
-    getSchools: () => dispatch(getSchools())
+    getSchools: () => dispatch(getSchools()),
+    unenrollStudent: (student) => dispatch(unenrollStudent(student))
   };
 })(_Schools);
 

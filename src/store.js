@@ -6,6 +6,7 @@ const SET_SCHOOLS = 'SET_SCHOOLS';
 const SET_STUDENTS = 'SET_STUDENTS';
 const ADD_STUDENT = 'ADD_STUDENT';
 const DEL_STUDENT = 'DEL_STUDENT';
+const UPD_STUDENT = 'UPT_STUDENT';
 
 const studentsReducer = (state = [], action) => {
   switch(action.type) {
@@ -15,6 +16,9 @@ const studentsReducer = (state = [], action) => {
       return [...state, action.student];
     case DEL_STUDENT:
       return state.filter( student => student.id !== action.student.id);
+    case UPD_STUDENT:
+      //creates new array with new student object
+      return state.map(student => student.id === action.student.id ? action.student : student);
   }
   return state;
 };
@@ -38,6 +42,7 @@ const store = createStore(reducer, applyMiddleware(thunk));
 const setStudents = (students) => ({ type: SET_STUDENTS, students });
 const addStudent = (student) => ({ type: ADD_STUDENT, student });
 const destroyStudent = (student) => ({ type: DEL_STUDENT, student });
+const updateStudent = (student) => ({ type: UPD_STUDENT, student });
 
 const setSchools = (schools) => ({ type: SET_SCHOOLS, schools });
 
@@ -59,6 +64,16 @@ const createStudent = (student) => {
   }
 };
 
+const unenrollStudent = (student) => {
+  console.log(student);
+  student.schoolId = null;
+  //console.log(student);
+  return async (dispatch) => {
+    await axios.put(`${API}/students/${student.id}`, student);
+    return dispatch(updateStudent(student));
+  }
+};
+
 const deleteStudent = (student) => {
   return async (dispatch) => {
     await axios.delete(`${API}/students/${student.id}`, student);
@@ -75,4 +90,4 @@ const getSchools = () => {
 };
 
 export default store;
-export { setStudents, addStudent, setSchools, getStudents, createStudent, deleteStudent, getSchools };
+export { setStudents, addStudent, setSchools, getStudents, createStudent, deleteStudent, unenrollStudent, getSchools };

@@ -31,10 +31,25 @@ app.get('/api/students', (req, res, next) => {
 });
 
 app.post('/api/students', (req, res, next) => {
-  console.log(req.body);
+
   Student.create(req.body)
     .then(student => res.send(student))
     .catch(next);
+});
+
+app.put('/api/students/:id', (req, res, next) => {
+  Student.findByPk(req.params.id)
+    .then(instance => {
+      Object.assign(instance, req.body);
+      instance.save();
+      res.send(instance);
+    })
+    .catch(next);
+    // Student.findByPk(req.params.id)
+    //   .then(instance => Object.assign(instance, req.body))
+    // instance.save()
+    //   .then(instance => res.send(instance))
+    //   .catch(next);
 });
 
 app.delete('/api/students/:id', (req, res, next) => {
