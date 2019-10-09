@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { unenrollStudent, getSchools } from './store';
+import { unenrollStudent } from './store';
 
 const _Schools = ({ schools, students, unenrollStudent }) => {
   return (
@@ -35,7 +35,7 @@ const Schools = connect(({ schools, students }) => {
   };
 }, (dispatch) => {
   return {
-    getSchools: () => dispatch(getSchools()),
+    //getSchools: () => dispatch(getSchools()),
     unenrollStudent: (student) => dispatch(unenrollStudent(student))
   };
 })(_Schools);

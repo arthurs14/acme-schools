@@ -65,10 +65,8 @@ const createStudent = (student) => {
 };
 
 const unenrollStudent = (student) => {
-  console.log(student);
-
+  // removes schoolId's value and turns it to null
   student.schoolId = null;
-
   return async (dispatch) => {
     await axios.put(`${API}/students/${student.id}`, student);
     return dispatch(updateStudent(student));
