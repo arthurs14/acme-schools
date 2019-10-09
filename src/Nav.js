@@ -10,14 +10,14 @@ const _Nav = ({ schools, students }) => {
   const totalStudents = students.filter(student => student.schoolId === school.id);
 
   // Finds top school by average GPA
-  
+
 
   return (
     <nav>
       <Link to='/'>Home</Link>
       <Link to='/schools'>Schools ({ schools.length })</Link>
       <Link to='/students'>Students ({ students.length })</Link>
-      <Link to='/schools/:id'>
+      <Link to={`/schools/${school.id}`}>
         Most Popular School: {school.name} ({totalStudents.length})
       </Link>
       <Link to='/schools/:id'>Top School: {}</Link>
@@ -25,10 +25,11 @@ const _Nav = ({ schools, students }) => {
   );
 };
 
-const Nav = connect(({ schools, students }) => {
+const Nav = connect(({ schools, students }, props) => {
   return {
     schools,
-    students
+    students,
+    props
   };
 })(_Nav);
 
