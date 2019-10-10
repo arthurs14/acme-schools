@@ -2,20 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { unenrollStudent, enrollStudent } from './store';
 
+const enrollAStudent = (studentId, schoolId, students, enrollStudent) => {
+  const student = students.find(_student => _student.id === studentId);
+  enrollStudent(student, schoolId);
+};
+
 const _PopularSchool = ({ students, schools, location, enrollStudent, unenrollStudent }) => {
   const schoolId = location.pathname.slice(9);
   const school = {...schools.find(school => school.id === schoolId)};
   const schoolStudents = students.filter(student => student.schoolId === schoolId);
-  //const unenrolledStudent = students.filter(student => student.schoolId === null);
-  //console.log(schoolStudents.length);
+
   return (
     <div>
       <h2>{school.name} ({schoolStudents.length} students enrolled)</h2>
-      <select name="student" onClick={(ev) => console.log(JSON.parse(ev.target.value))}>
+      <select name="student" onClick={(ev) => enrollAStudent(ev.target.value, schoolId, students, enrollStudent)}>
         <option value="">-- Add Student --</option>
         {
           students.filter(student => student.schoolId === null).map(student =>
-            <option key={student.id} value={student} >{student.firstName} {student.lastName}</option>
+            <option key={student.id} value={student.id} >{student.firstName} {student.lastName}</option>
           )
         }
       </select>
