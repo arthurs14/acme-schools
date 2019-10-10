@@ -35,7 +35,6 @@ const Schools = connect(({ schools, students }) => {
   };
 }, (dispatch) => {
   return {
-    //getSchools: () => dispatch(getSchools()),
     unenrollStudent: (student) => dispatch(unenrollStudent(student))
   };
 })(_Schools);
